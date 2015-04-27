@@ -77,19 +77,19 @@ public class DAO {
 	
 	private static String SELECTNAZIV="SELECT a.naziv_predmeta,a.slika FROM aukcije a, ponude p WHERE naziv_predmeta=? AND a.id_aukcije=p.id_aukcije";
 	private static String SELECTVREMEPONUDE="SELECT p.vreme,p.vrednost_ponude FROM ponude p, clanovi c, aukcije a WHERE p.id_clana = c.id_clana AND c.username=? AND a.naziv_predmeta=? AND a.id_aukcije=p.id_aukcije";
-	private static String SELECTUSERNAMEPONUDE="SELECT c.username FROM clanovi c, aukcije a, ponude p WHERE a.id_aukcije=p.id_aukcije AND p.id_clana=c.id_clana AND a.naziv_predmeta=?";
+	private static String SELECTUSERNAMEPONUDE="SELECT c.username FROM clanovi c, aukcije a, ponude p WHERE a.id_aukcije=p.id_aukcije AND p.id_clana=c.id_clana AND a.id_aukcije=?";
 	
-	private static String SELECTPRODAVCAPONUDE="SELECT c.username FROM clanovi c, aukcije a WHERE c.id_clana=a.id_clana AND a.naziv_predmeta=?";
-	private static String SELECTVREMETRAJANJA="SELECT trajanje FROM aukcije WHERE naziv_predmeta=?";
+	private static String SELECTPRODAVCAPONUDE="SELECT c.username FROM clanovi c, aukcije a WHERE c.id_clana=a.id_clana AND a.id_aukcije=?";
+	private static String SELECTVREMETRAJANJA="SELECT trajanje FROM aukcije WHERE id_aukcije=?";
 	//linkovanje-ponuda
 	
 	private static String SELECTPREDMET="SELECT naziv_predmeta,slika, id_aukcije,id_clana, trajanje, cena, nacin_dostave, nacin_placanja, stanje_predmeta, opis,ban FROM aukcije WHERE naziv_predmeta=?";
-	private static String SELECTCOUNTPONUDE="SELECT COUNT(p.id_aukcije) "+"max"+" FROM ponude p, aukcije a WHERE p.id_aukcije=a.id_aukcije AND a.naziv_predmeta=?";
+	private static String SELECTCOUNTPONUDE="SELECT COUNT(id_aukcije) "+"ukupno"+" FROM ponude WHERE id_aukcije=?";
 	
 	//r dodato
 		private static String SELECTEMAILBYEMAIL =  "SELECT email FROM clanovi WHERE email = ? ";
 		private static String SELECTEUSERNAMEBYUSERNAME =  "SELECT username FROM clanovi WHERE username = ? ";
-		private static String SELECTLASTIDAUKCIJE= "SELECT max(id_aukcije) AS max FROM aukcije";
+		private static String SELECTLASTIDAUKCIJE= "SELECT max(id_aukcije) AS poslednja FROM aukcije";
 		private static String DODAJSLIKUNAAUKCIJU="UPDATE aukcije SET slika=? WHERE id_aukcije=? ";
 		private static String SELECTRANDOMAUKCIJE="SELECT * FROM aukcije WHERE id_aukcije BETWEEN RAND()*10 AND rand()*100 OR id_aukcije BETWEEN RAND()*100 AND RAND()*1000 ORDER BY trajanje DESC LIMIT 10";
 		private static String SELECTAUKCIJUBYID="SELECT * FROM aukcije WHERE id_aukcije = ?";
@@ -139,7 +139,7 @@ public class DAO {
 			
 		}
 		
-		
+	//nisam	
 	public void oceni(int idOcenjivaca,int idOcenjenog,int idAukcije,int pozitivna,int negativna,String komentar){
 		PreparedStatement pstm=null;
 		
@@ -160,7 +160,7 @@ public class DAO {
 		}
 		
 	}
-	
+	//nisam
 	public JSONArray maxPonudePoAukciji() throws Exception{
 		PreparedStatement pstm=null;
 		ResultSet rs= null;
@@ -210,6 +210,8 @@ e.printStackTrace();
 		return null;
 	}
 	
+	
+	
 	public void updateAukcije(int ban,int id_aukcije){
 		PreparedStatement pstm=null;
 		
@@ -225,6 +227,8 @@ e.printStackTrace();
 			terminate();
 		}
 	}
+	
+	
 	public int izbrisiAukciju(int id_aukcije){
 		PreparedStatement pstm = null;
 		 try {
@@ -240,6 +244,9 @@ e.printStackTrace();
 			}
 		 return 200;
 	}
+	
+	
+	
 	public JSONArray selectAukcijeByID(int id_aukcije) throws Exception{
 		//Connection con = null;
 			PreparedStatement pstm = null;
@@ -275,26 +282,31 @@ e.printStackTrace();
 		}
 	
 	
-	public int selectCountPonude(String naziv_predmeta){
+	public JSONArray selectCountPonude(int id_aukcije) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm = null; 
 		ResultSet rs=null;
+		 JSONArray json = new JSONArray();
 		int p=0;
 		try {
 			//con=ds.getConnection();
 			pstm=con.prepareStatement(SELECTCOUNTPONUDE);
 			
-			pstm.setString(1, naziv_predmeta);
+			pstm.setInt(1, id_aukcije);
 			pstm.execute();
 			rs=pstm.getResultSet();
 		
 			
-			if(rs.next()){
+			rs= pstm.executeQuery();
+
+
+			rs = pstm.getResultSet();
+
+			if(rs!=null){
+				json= converter.toJSONArray(rs);
 				
-				p=rs.getInt("max");
-				
-			}
-			return p;
+				}
+				return json;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -302,28 +314,26 @@ e.printStackTrace();
 			terminate();
 		}
 		
-		return p;
+		return null;
 	}
 	
-		public int IdZadnjeUneteAukcije(){
+		public JSONArray IdZadnjeUneteAukcije() throws Exception{
 			PreparedStatement pstm = null; 
 			ResultSet rs=null;
+			 JSONArray json = new JSONArray();
+			
 			int id=0;
 			try {
 				//con=ds.getConnection();
 				pstm=con.prepareStatement(SELECTLASTIDAUKCIJE);
-				pstm.execute();
-				rs=pstm.getResultSet();
-			
+				rs = pstm.executeQuery();
+
+				if(rs!=null){
+					json= converter.toJSONArray(rs);
+					
+					}
+					return json;
 				
-				if(rs.next()){
-					
-					
-					id=rs.getInt("max");
-				
-					
-					return id;
-				}
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -331,9 +341,9 @@ e.printStackTrace();
 				terminate();
 			}
 			
-			return 0;
+			return null;
 		}
-			
+			//nisam
 		public void dodavanjeSlikeNaAukciju(String slika, int id_aukcije){
 			PreparedStatement pstm = null; 
 			ResultSet rs=null;
@@ -359,8 +369,8 @@ e.printStackTrace();
 			
 		}
 	
-	
-		public JSONArray selectVremeTrajanja(String naziv_predmeta) throws Exception{
+		
+		public JSONArray selectVremeTrajanja(int id_aukcije) throws Exception{
 			//Connection con=null;
 			PreparedStatement pstm = null; 
 			ResultSet rs=null;
@@ -369,7 +379,7 @@ e.printStackTrace();
 				//con=ds.getConnection();
 				pstm=con.prepareStatement(SELECTVREMETRAJANJA);
 				
-				pstm.setString(1, naziv_predmeta);
+				pstm.setInt(1, id_aukcije);
 				
 				rs=pstm.executeQuery();
 				
@@ -390,7 +400,7 @@ e.printStackTrace();
 			return null;
 		}
 		
-		public JSONArray selectProdavacPonude(String naziv_predmeta) throws Exception{
+		public JSONArray selectProdavacPonude(int id_aukcije) throws Exception{
 			//Connection con=null;
 			PreparedStatement pstm = null; 
 			ResultSet rs=null;
@@ -399,7 +409,7 @@ e.printStackTrace();
 				//con=ds.getConnection();
 				pstm=con.prepareStatement(SELECTPRODAVCAPONUDE);
 				
-				pstm.setString(1, naziv_predmeta);
+				pstm.setInt(1, id_aukcije);
 				
 				rs=pstm.executeQuery();
 				if(rs!=null){
@@ -449,7 +459,8 @@ e.printStackTrace();
 			
 			return null;
 		}
-		public JSONArray selectUsernamePonude(String naziv_predmeta) throws Exception{
+		//lista username-ova za spisak svih ponuda za predmet
+		public JSONArray selectUsernamePonude(int id_aukcije) throws Exception{
 			//Connection con=null;
 			PreparedStatement pstm = null; 
 			ResultSet rs=null;
@@ -459,7 +470,7 @@ e.printStackTrace();
 				//con=ds.getConnection();
 				pstm=con.prepareStatement(SELECTUSERNAMEPONUDE);
 				
-				pstm.setString(1, naziv_predmeta);
+				pstm.setInt(1, id_aukcije);
 				
 				rs=pstm.executeQuery();
 				
@@ -540,7 +551,7 @@ e.printStackTrace();
 		return null;
 	}
 	
-	
+	//nisam
 	public JSONArray selectNaziv(String naziv_predmeta) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm = null; 
@@ -576,7 +587,7 @@ e.printStackTrace();
 	
 	
 	
-	public JSONArray selectKategorije(String kategorije) throws Exception{
+	public JSONArray selectKategorije(String kategorija) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm = null; 
 		ResultSet rs=null;
@@ -586,7 +597,7 @@ e.printStackTrace();
 			//con=ds.getConnection();
 			pstm=con.prepareStatement(SELECTKATEGORIJA);
 			
-			pstm.setString(1, kategorije);
+			pstm.setString(1, kategorija);
 
 			rs=pstm.executeQuery();
 			if(rs!=null){
@@ -605,7 +616,7 @@ e.printStackTrace();
 	
 	
 	
-	//ranko
+	//nisam
 	public JSONArray mojeAukcijePonude(int id_clana) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm = null; 
@@ -637,7 +648,7 @@ e.printStackTrace();
 	}
 	
 	
-	public void izbrisiClana(int id_clana){
+	public int  izbrisiClana(int id_clana){
 		//Connection con=null;
 		PreparedStatement pstm= null;
 		try{
@@ -647,10 +658,11 @@ e.printStackTrace();
 			pstm.execute();
 		}catch(SQLException e ){
 			e.printStackTrace();
+			return 500;
 		}finally{
 			terminate();
 		}
-		
+		return 200;
 		
 		
 		
@@ -663,7 +675,7 @@ e.printStackTrace();
 		try {
 			//con= ds.getConnection();
 			pstm=con.prepareStatement(SELECTCLANABYID);
-			
+			pstm.setInt(1, id_clana);
 			
 			rs=pstm.executeQuery();
 			
@@ -693,7 +705,7 @@ e.printStackTrace();
 	
 	
 	
-
+//nisam
 	
 	public JSONArray selectJedanAukcija(String naziv_predmeta) throws Exception{
 		//Connection con = null;
@@ -724,7 +736,7 @@ e.printStackTrace();
 		return null;
 		
 	}
-	
+	//nisam
 	public JSONArray selectImeJednogProdavca(String naziv_predmeta) throws Exception{
 		//Connection con = null;
 		PreparedStatement pstm = null;
@@ -765,7 +777,7 @@ e.printStackTrace();
 	
 	
 	
-	
+	//nisam
 	public JSONArray selectImeProdavca(int id_clana) throws Exception{
 //Connection con = null;
 		PreparedStatement pstm = null;
@@ -804,7 +816,7 @@ e.printStackTrace();
 	
 	
 	
-	
+	//nisam
 	public JSONArray selectPrikazSveAukcije() throws Exception{
 		//Connection con = null;
 		PreparedStatement pstm = null;
@@ -865,7 +877,7 @@ e.printStackTrace();
 		return null;
 		
 	}
-	
+	//nisam
 	public JSONArray selectPrikazSvihClanova() throws Exception{
 		//Connection con = null;
 		PreparedStatement pstm = null;
@@ -941,7 +953,7 @@ e.printStackTrace();
 		
 		
 		
-	
+	//nisam
 	public void izmenaProfila(String ime, String prezime,String drzava, String opstina, String adresa,String broj,String mobilni,String email,String sifra,int id_clana,String administrator,int ban){
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -977,7 +989,7 @@ e.printStackTrace();
 	
 		
 	}
-		
+		//nisam
 public int dodajAuckiju(Aukcije a){
 		//Connection con=null;
 		PreparedStatement pstm = null;
@@ -1010,7 +1022,7 @@ public int dodajAuckiju(Aukcije a){
 		
 		return 200;
 	}
-	
+	//nisam
 	public int pozitivneOcene(int id_ocenjenog){
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1038,6 +1050,7 @@ public int dodajAuckiju(Aukcije a){
 		return 0;
 		
 	}
+	//nisam
 	public int negativneOcene(int id_ocenjenog){
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1065,6 +1078,7 @@ public int dodajAuckiju(Aukcije a){
 		return 0;
 		
 	}	
+//nisam
 	public JSONArray prikaziOcene(int id_ocenjenog) throws Exception{
 		//Connection con = null;
 		PreparedStatement pstm = null;
@@ -1097,7 +1111,7 @@ public int dodajAuckiju(Aukcije a){
 		
 		return null; 
 	}
-	
+	//nisam
 	public JSONArray ocenjivac(int id_ocenjivaca) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1216,7 +1230,7 @@ public int dodajAuckiju(Aukcije a){
 		return null; 
 	}
 	//ranko finalna
-	
+	//nisam
 	public JSONArray emailByEmail(String email) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1242,6 +1256,7 @@ public int dodajAuckiju(Aukcije a){
 			
 			return null;	
 		}
+	//nisam
 	public JSONArray userByUsername(String username) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1267,6 +1282,7 @@ public int dodajAuckiju(Aukcije a){
 			
 			return null;	
 		}
+	//nisam
 	public int selectCenaAukcijeById(int id_aukcije){
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1295,7 +1311,7 @@ public int dodajAuckiju(Aukcije a){
 		
 		return 0;
 	}
-	
+	//nisam
 	public void updateCene(int cena,int id_aukcije){
 		//Connection con=null;
 		PreparedStatement pstm=null;
@@ -1318,6 +1334,7 @@ public int dodajAuckiju(Aukcije a){
 		}
 			
 	}
+	//nisam
 	public void dodajPonudu(int id_aukcije, int id_clana,int ponudjena_cena){
 		//Connection con=null;
 		PreparedStatement pstm=null;

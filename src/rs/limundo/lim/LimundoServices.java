@@ -47,11 +47,32 @@ public class LimundoServices {
 			return jsonString;
 		}
 		
+	@Path("/randomaukcije")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public String randomAuckije() throws Exception{
+		String	jsonString= null;
+		JSONArray json = new JSONArray();
 		
+		try {
+			DAO dao = new DAO();
+			
+			json= dao.randomAukcije();
+			jsonString= json.toString();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return jsonString;
+	}
 		@Path("/clanovi")
 				@GET
 				@Produces(MediaType.APPLICATION_JSON)
-				public Response allClanovi() throws Exception{
+				public String allClanovi() throws Exception{
 					String	jsonString= null;
 					JSONArray json = new JSONArray();
 					
@@ -68,10 +89,308 @@ public class LimundoServices {
 					
 					
 					
-					return Response.ok(jsonString).build();
+					return jsonString;
 				}
 		
+		@Path("/ocenebyidaukcije/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectOcene(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
 				
+				json= dao.selectOcene(id_aukcije);
+				jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+				
+		@Path("/aukcija/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectAukcijeByIDAukcije(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+				json= dao.selectAukcijeByID(id_aukcije);
+				jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		@Path("/brojponuda/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectCountPonude(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectCountPonude(id_aukcije);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		@Path("/idposlednjeaukicje")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String IdZadnjeUneteAukcije() throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+				json= dao.IdZadnjeUneteAukcije();
+				jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		@Path("/trajanjeaukcije/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectVremeTrajanja(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectVremeTrajanja(id_aukcije);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		@Path("/usernamepokretacaaukcije/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectProdavacPonude(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectProdavacPonude(id_aukcije);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		@Path("/predmetsaimenom/{naziv_predmeta}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectPredmet(@PathParam("naziv_predmeta")String naziv_predmeta) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectPredmet(naziv_predmeta);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		//lista username-ova za spisak svih ponuda za predmet
+		@Path("/ponudjac/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectUsernamePonude(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectUsernamePonude(id_aukcije);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		@Path("/ponudezaaukciju/{id_aukcije}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectPonude(@PathParam("id_aukcije")int id_aukcije) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectPonude(id_aukcije);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		@Path("/kategorija/{kategorija}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectKategorije(@PathParam("kategorija")String kategorija) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectKategorije(kategorija);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		@Path("/clan/{id_clana}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectClanByUserId(@PathParam("id_clana")int id_clana) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectClanByUserId(id_clana);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		@Path("/clanbyusername/{username}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectClan(@PathParam("username")String username) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectClan(username);
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		@Path("/userwithusername/{username}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectClanByUsername(@PathParam("username")String username) throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectClanByUsername(username);
+			jsonString= json.toString();
+			
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
+		
+		
+		
+		
+		
 		
 		/*@Path("/jeftinije")
 		@GET
@@ -168,7 +487,7 @@ String returnString=null;
 	*/
 	
 	@Path("/delete/{id_aukcije}")
-	@POST
+	@DELETE
 	public Response deleteAukcije(@PathParam("id_aukcije") int id_aukcije){
 		
 		int code=0;
@@ -181,6 +500,30 @@ String returnString=null;
 			
 			if(code == 200){
 				returnString="Uspesna izmena";
+			}else {
+				returnString="Greska";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		return Response.ok(returnString).build();
+	}
+	@Path("/izbrisiclana/{id_clana}")
+	@DELETE
+	public Response izbrisiClana(@PathParam("id_clana") int id_clana){
+		
+		int code=0;
+		String returnString=null;
+		try {
+			DAO dao= new DAO();
+			
+					
+			code=dao.izbrisiClana(id_clana);
+			
+			if(code == 200){
+				returnString="Uspesno obrisan clan";
 			}else {
 				returnString="Greska";
 			}

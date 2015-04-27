@@ -110,6 +110,36 @@ public class DAO {
 		}
 	}
 		
+
+		public JSONArray selectSveKategorije() throws Exception{
+			PreparedStatement pstm=null;
+			ResultSet rs= null;
+			 JSONArray json = new JSONArray();
+		
+			
+			try {
+				pstm= con.prepareStatement("select distinct kategorija from aukcije");
+				
+				rs=pstm.executeQuery();
+				
+				if(rs!=null){
+					json= converter.toJSONArray(rs);
+					
+					}
+					return json;
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				terminate();
+			}
+			
+			return null;
+			
+			
+		}
+		
 		public JSONArray selectOcene(int id_aukcije) throws Exception{
 			PreparedStatement pstm=null;
 			ResultSet rs= null;

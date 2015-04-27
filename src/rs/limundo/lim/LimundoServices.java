@@ -319,6 +319,30 @@ public class LimundoServices {
 			return jsonString;
 		}
 		
+		
+		@Path("/kategorije")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public String selectSveKategorije() throws Exception{
+			String	jsonString= null;
+			JSONArray json = new JSONArray();
+			
+			try {
+				DAO dao = new DAO();
+				
+			json= dao.selectSveKategorije();
+			jsonString= json.toString();
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			return jsonString;
+		}
+		
 		@Path("/clan/{id_clana}")
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)

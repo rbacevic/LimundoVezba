@@ -1,4 +1,53 @@
-var limApp = angular.module('limApp', []);
+angular.module('limundo.Controlers',[])
+.controller('KategorijeCtrl', function($scope, Kategorije) {
+	
+	$scope.svekategorije = Kategorije.query();
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*var limApp = angular.module('limApp', []);
 
 limApp.controller('ListaAuckijaCtrl',[ '$scope', '$http', 
 		function($scope,$http){ 
@@ -42,4 +91,4 @@ var onClick = function($scope,ClanoviCtrl) {
 	
 	
 	
-};
+};*/

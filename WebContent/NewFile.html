@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="limApp">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="js/controllers.js"></script>
+</head>
+<body ng-controller="ListaAuckijaCtrl">
+
+Search <input ng-model="query">
+
+<select ng-model="orderProp">
+<option value="naziv_predmeta">Aplphabetical</option>
+<option value="id">By ID </option>
+</select>
+
+
+
+  <ul>
+    <li ng-repeat="aukcija in aukcije|filter:query| orderBy: orderProp">
+     ID aukcije: <span>{{aukcija.id_aukcije}}</span> <br>
+      Naziv predmeta:<span>{{aukcija.naziv_predmeta}}</span><br>
+      Cena: <span>{{aukcija.cena}}</span><br>
+    </li>
+  </ul>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
-angular.module('limundo.Controlers',[])
-.controller('KategorijeCtrl', function($scope, Kategorije) {
+/*angular.module('limundo.controlers',[])
+.controller('KategorijeCtrl',[ 
+           function($scope, Kategorije) {
 	
-	$scope.svekategorije = Kategorije.query();
-	
-});
-
+	$scope.svekategorije = Kategorije.data;	
+}]);
+*/
 
 
 

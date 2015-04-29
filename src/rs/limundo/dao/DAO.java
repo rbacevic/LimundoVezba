@@ -71,7 +71,7 @@ public class DAO {
 	private static String SELECTMOJEAUKCIJE="SELECT id_aukcije,naziv_predmeta, slika,cena, kategorija, trajanje,slika FROM aukcije WHERE id_clana=?";
 	
 	//aco dodato
-	private static String SELECTKATEGORIJA="SELECT trajanje, cena, naziv_predmeta, kategorija,slika FROM aukcije WHERE LOWER(kategorija)=?";
+	private static String SELECTKATEGORIJA="SELECT * FROM aukcije WHERE LOWER(kategorija)=?";
 	
 	//aco dodato-na vrednost 
 	

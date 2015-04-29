@@ -1,9 +1,33 @@
-<div class="panel panel-success">
-<div class="panel-heading">Aukcije</div>
-<div class="panel-body">
-
-
-
-
+<div>
+</div><div class="panel panel-success">
+<div class="panel-heading"></div>
+<div class="panel-body" ng-repeat="aukcija in aukcija" >
+<div class="row">
+<div class="col-md-4 col-xs-4"><img src="img_aukcije/{{aukcija.slika}}" alt="" width="200px" height="200px" class="img-rounded img-responsive"></div>
+<div class="col-md-8 col-xs-8 "><h4> {{aukcija.naziv_predmeta}}</h4> </div>
 </div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Broj aukcije: {{aukcija.id_aukcije}}</div>
 </div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Cena: {{aukcija.cena}}</div>
+</div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Nacin dostave: {{aukcija.nacin_dostave}}</div>
+</div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Nacin placanja: {{aukcija.nacin_placanja}}</div>
+</div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Stanje predemeta: {{aukcija.stanje_predmeta}}</div>
+</div>
+<div class="row" style="height: 40px">
+<div class="col-md-4 col-xs-4"></div>
+<div class="col-md-8 col-xs-8 ">Opis: {{aukcija.opis}}</div>
+</div>
+</div></div>

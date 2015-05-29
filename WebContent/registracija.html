@@ -1,21 +1,38 @@
+<!DOCTYPE html>
+
 <div>
-<div class="panel panel-success">
-<div class="panel-heading">Registracija</div>
-<div class="panel-body" >
-<div class="row">
-<label>Ime:</label> <input type="text" class="form-control col-md-5" placeholder="Unesite Vase ime" required > 
-<label>Prezime:</label> <input type="text" class="form-control col-md-5" placeholder="Unesite Vase prezime" required > 
-<label>Email</label><input type="email" class="form-control col-md-5" placeholder="Unesite e-mail" required > 
-<label>Username</label><input type="text" class="form-control col-md-5" placeholder="Unesite username" required >
-<label>Password</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required >
-<label>Adresa</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required >
-<label>Broj	</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required >
-<label>Drzava</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required >
-<label>Opstina</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required >
+	<div class="panel panel-success">
+		<div class="panel-heading"></div>
+		<div class="panel-body">
+<form class="class="form-horizontal"> 			
+			
+<label>Ime:</label> <input type="text" class="form-control col-md-5" placeholder="Unesite Vase ime" required ng-model="clan.ime" > 
+
+<label>Prezime:</label> <input type="text" class="form-control col-md-5" placeholder="Unesite Vase prezime" required ng-model="clan.prezime"> 
+
+<label>Email</label><input type="email" class="form-control col-md-5" placeholder="Unesite e-mail" required ng-model="clan.email" > 
+
+<label>Username</label><input type="text" class="form-control col-md-5" placeholder="Unesite username" required ng-model="clan.username" >
+
+<label>Password</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required ng-model="clan.password" >
+
+<label>Adresa</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required ng-model="clan.adresa">
+
+<label>Broj	</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required ng-model="clan.broj">
+
+<label>Drzava</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required ng-model="clan.drzava" >
+
+<label>Opstina</label><input type="password" class="form-control col-md-5" placeholder="Unesite sifru" required ng-model="clan.opstina">
 
 
 
-</div>
-</div>
-</div>
+</form> 
+			
+			
+		</div>
+	</div>
+
+
+
+
 </div>

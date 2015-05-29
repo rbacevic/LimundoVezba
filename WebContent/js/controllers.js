@@ -1,94 +1,83 @@
-/*angular.module('limundo.controlers',[])
-.controller('KategorijeCtrl',[ 
-           function($scope, Kategorije) {
-	
-	$scope.svekategorije = Kategorije.data;	
-}]);
-*/
+'use strict';
 
+var app = angular.module('limundo.controllers', [ 'ngRoute' ]);
 
+app.run(function ($rootScope, $templateCache) {
+	  $rootScope.$on('$viewContentLoaded', function () {
+	    $templateCache.removeAll();
+	  });
+	});
 
+var baseUrl = 'http://localhost:8080/Test/test/test';
+app.controller('KategorijeCtrl', [ '$scope', 'SveKategorijeFactory', '$location',
+		'$rootScope', function($scope, SveKategorijeFactory, $location, $rootScope) {
+		$scope.svekategorije=SveKategorijeFactory.query();
+			$scope.onclick = function(kategorija) {
 
+				$location.path('/' + kategorija);
 
+			};
 
+		} ]);
+app.controller('RandomAukcijeCtrl', [ '$scope', 'RandomAukcijeFactory', '$location',
+		'$rootScope', function($scope, RandomAukcijeFactory, $location, $rootScope) {
 
+			$scope.aukcije=RandomAukcijeFactory.query();
+			$scope.onclick = function(id_aukcije) {
 
+				$location.path('/predmetlicitacije/' + id_aukcije);
 
+			};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*var limApp = angular.module('limApp', []);
-
-limApp.controller('ListaAuckijaCtrl',[ '$scope', '$http', 
-		function($scope,$http){ 
-	$http.get('http://localhost:8080/Test/test/aukcije').success(function(data) {
-		$scope.aukcije= data;
-
+		} ]);
+app.controller('PrikazCtrl', [
+		'$scope',
+		'PrikazAukcijeFactory',
+		'$routeParams',
+		'$rootScope',
+		function($scope, PrikazAukcijeFactory, $routeParams, $rootScope) {
 		
-	})
-	
-  $scope.orderProp= 'id';
-  
-}]);
-
-limApp.service('ClanoviCtrl', ['$scope','$http', 
-      function($scope,$http){
-	$http.get().success(function(data){
-		$scope.clanovi=data;
-		return $scope.clanovi;
-	})
-}]);                            
-                                  
-                                 
-
-
-var onClick = function($scope,ClanoviCtrl) {
-
-   
-	
-	$scope.username= username;
-	$scope.password= password;
-	
-	$scope.forEach(ClanoviCtrl.clanovi, function(values, key) {
-		if($scope.equals(valueOf(key), $scope.username))
-			if($scope.equals(valueOf(key), $scope.password)){
-				alert.bind('Login');
-			}
+			$scope.aukcija=PrikazAukcijeFactory.query({id_aukcije: $routeParams.id_aukcije});
 			
-		
-		
-	})
-	
-	
-	
-};*/
+		} ]);
+
+app.controller('SveAukcijeCtrl', [ '$scope', 'SveAukcijeFactory', '$location',
+		function($scope, SveAukcijeFactory, $location) {
+			$scope.sveaukcije = SveAukcijeFactory.query();
+
+			$scope.onclick = function(id_aukcije) {
+
+				$location.path('/predmetlicitacije/' + id_aukcije);
+
+			};
+
+		} ]);
+
+app.controller('KatCtrl', [
+		'$scope',
+		'KategorijaFactory',
+		'$routeParams',
+		'$location',
+		'$rootScope',
+		function($scope,KategorijaFactory, $routeParams, $location, $rootScope) {
+			$scope.sveaukcije=KategorijaFactory.query({kategorija: $routeParams.kategorija});
+			$scope.onclick = function(id_aukcije) {
+
+				$location.path('/predmetlicitacije/' + id_aukcije);
+
+			};
+
+			
+ app.controller('RegCtrl', ['$scope',
+                            
+                            function($scope){
+	 						
+	 					
+	 						
+	 
+			  
+			   }] );
+			 
+
+		} ]);
+

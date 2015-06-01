@@ -1,5 +1,7 @@
 package rs.limundo.lim;
 
+import java.sql.SQLException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -18,6 +20,7 @@ import org.codehaus.jettison.json.JSONArray;
 
 import rs.limundo.dao.DAO;
 import rs.limundo.model.Aukcije;
+import rs.limundo.model.Clan;
 
 @Path("/test")
 public class LimundoServices {
@@ -503,6 +506,21 @@ public class LimundoServices {
 		}
 
 		return Response.ok(returnString).build();
+	}
+	
+	@Path("/registracija")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response registracija( ){
+		return null;
+
+		
+		
+		
+		
+		
+		
 	}
 	
 	

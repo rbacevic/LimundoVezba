@@ -59,3 +59,14 @@ services.factory('KategorijaFactory', function($resource) {
 	})
 
 });
+services.factory('RegistracijaFactory', function($resource){
+	return $resource(baseUrl+'/registracija',{},
+	{
+		registracija :{
+			method: 'POST'
+		}
+			
+})});
+	
+	
+

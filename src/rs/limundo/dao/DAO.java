@@ -15,6 +15,7 @@ import org.apache.tomcat.util.threads.ResizableExecutor;
 import org.codehaus.jettison.json.JSONArray;
 
 import rs.limundo.model.Aukcije;
+import rs.limundo.model.Clan;
 import rs.limundo.util.ToJSON;
 
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
@@ -947,7 +948,7 @@ e.printStackTrace();
 	//kraj
 	
 	//Ranko finalna
-/*	public void dodajClana(Clan c){
+	public void dodajClana(Clan c){
 		//Connection con=null;
 		PreparedStatement pstm = null;
 		
@@ -978,7 +979,7 @@ e.printStackTrace();
 				terminate();
 			}
 		}
-		*/
+		
 		
 		
 		

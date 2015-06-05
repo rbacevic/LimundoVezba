@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html ng-app="limundo">
 <head>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Limundo</title>
 </head>
-<body ng-app="limundo" >
+<body ng-controller="ApplicationController" >
 
 <div class="container" style="box-shadow: 0 0 20px black;">
 <div ><a href="#" > <img alt="" src="img/header.jpg"> </a> </div>
@@ -39,7 +39,7 @@
       </form>-->
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#/registracija">Registracija</a></li>
-      	<li><a href="#">Prijava</a></li>
+      	<li><a href="#/login">Prijava</a></li>
       </ul> </nav>
  
  <div class="row">

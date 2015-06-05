@@ -1,9 +1,9 @@
 package rs.limundo.util;
 
-/*import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONObject;
 
-*/
+
+
+
 
 import java.sql.ResultSet;
 
@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 
 
-public class ToJSON {
+public class ToJSON1 {
 
 	public JSONArray toJSONArray(ResultSet rs) throws Exception {
 		

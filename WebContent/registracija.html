@@ -1,4 +1,4 @@
-
+<meta charset="UTF-8">
 
 <div class="container-fluid">
 	<div class="panel panel-success">
@@ -6,23 +6,24 @@
 		<div class="panel-body">
 	
 	
-<form name="reg" ng-submit="registrtuj()">
+<form novalidate="novalidate" name="reg" >
 <table>
 <tr><td>Ime i prezime: </td>
-<td><input class="textbox" type="text" name="ime" ng-model="clan.ime" required><br>
+<td><input class="textbox" type="text" id="ime"  ng-model="clan.ime" required><br>
+<span  ng-show="reg.ime.$invalid && reg.ime.$dirty">Unersite ime </span>
 
 </td>
-<td><input class="textbox" type="text" name="prezime" ng-model="clan.prezime" required></td> 
+<td><input class="textbox" type="text"  ng-model="clan.prezime" required></td> 
 </tr>
 <tr><td>E-mail:</td>
-<td colspan="2"><input class="textbox" type="text" name="email" ng-model="clan.email" required ></td>
+<td colspan="2"><input class="textbox" type="text"  ng-model="clan.email" required ></td>
 </tr>
 <tr><td>Adresa i broj: </td>
-<td><input class="textbox" type="text" name="adresa" ng-model="clan.adresa" required ></td>
-<td><input class="textbox" type="text" name="broj" ng-model="clan.broj" required ></td> 
+<td><input class="textbox" type="text"  ng-model="clan.adresa" required ></td>
+<td><input class="textbox" type="text"  ng-model="clan.broj" required ></td> 
 </tr>
-<tr><td>Drûava: </td>
-<td colspan="2"><select class="option" title="Izaberi drzavu" name="drzava" ng-model="clan.drzava" required > 
+<tr><td>Dr≈æava: </td>
+<td colspan="2"><select class="option" title="Izaberi drzavu"  ng-model="clan.drzava" required > 
 
 <option value="srbija">Srbija
 <option value="bih">BiH
@@ -32,95 +33,33 @@
 </select>   </td>
 </tr>
 
-<tr><td>Opötina: </td>
-<td colspan="2"><input class="textbox" type="text" name="opstina" ng-model="clan.opstina" required ></td>
+<tr><td>Op≈°tina: </td>
+<td colspan="2"><input class="textbox" type="text"  ng-model="clan.opstina" required ></td>
 </tr>
 <tr><td>Mobilni telefon: </td>
-<td colspan="2"><input class="textbox" type="text" name="mobilni" ng-model="clan.mobilni" required ></td>
+<td colspan="2"><input class="textbox" type="text"  ng-model="clan.mobilni_telefon" required ></td>
 </tr>
-<tr><td>Datum roenja: </td>
-<td><select class="option" title="Dan" name="dan" ng-model="clan.dan" required> 
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-</select>
-<select class="option" title="Mesec" name="mesec" ng-model="clan.mesec" required>
-<option value="januar">Januar</option>
-<option value="februar">Februar</option>
-<option value="mart">Mart</option>
-<option value="april">April</option>
-<option value="maj">Maj</option>
-<option value="jun">Jun</option>
-<option value="jul">Jul</option>
-<option value="avgust">Avgust</option>
-  <option value="septembar">Septembar</option>
-  <option value="oktobar">Oktobar</option>
-  <option value="novembar">Novembar</option>
-  <option value="decembar">Decembar</option>
-</select>
-<select class="option" title="Godina" name="godina" ng-model="clan.godina" required>
-<option value="1996">1996</option>
-<option value="1995">1995</option>
-<option value="1994">1993</option>
-<option value="1992">1992</option>
-<option value="1991">1991</option>
-<option value="1990">1990</option>
-<option value="1989">1989</option>
-<option value="1988">1988</option>
-  <option value="1987">1987</option>
-  <option value="1986">1986</option>
-  <option value="1985">1985</option>
-  <option value="1984">1984</option>
-</select>
-
+<tr><td>Datum roƒëenja: </td>
+<td>
+<input class="textbox" type="text"  ng-model="clan.datum_rodjenja" required ></td>
 
 </tr>
 <tr><td>Pol: </td>
-<td colspan="2"><input  type="radio" ng-model="clan.pol"  value="muski">Muöki <input  type="radio" ng-model="clan.pol"  value="zenski">éenski</td>
+<td colspan="2"><input  type="radio" ng-model="clan.pol"  value="muski">Mu≈°ki <input  type="radio" ng-model="clan.pol"  value="zenski">≈Ωenski</td>
  
 </tr>
-<tr><td>Izaberite korisniËko ime: </td>
-<td colspan="3"><input class="textbox" type="text" name="user" ng-model="clan.username" required ></td>
+<tr><td>Izaberite korisniƒçko ime: </td>
+<td colspan="3"><input class="textbox" type="text"  ng-model="clan.username" required ></td>
 
 </tr>
-<tr><td>Unesite ûeljenu öifru: </td>
-<td colspan="3"><input class="textbox"  type="password" name="pass" ng-model="clan.password" required > </td>
+<tr><td>Unesite ≈æeljenu ≈°ifru: </td>
+<td colspan="3"><input class="textbox"  type="password" ng-model="clan.password" required > </td>
 </tr>
-<tr>
-<td><input type="hidden" name="admin" value="ne" ng-model="clan.admin" > </td>
+
+<tr><td>Da li prihvatate uslove kori≈°ƒáenja: </td>
+<td colspan="3"><input type="checkbox"  value="ok" > </td>
 </tr>
-<tr><td>Da li prihvatate uslove koriöÊenja: </td>
-<td colspan="3"><input type="checkbox"ng-model="clan.uslovi"  value="ok" > </td>
-</tr>
-<tr><td colspan="3"><input class="button" type="submit"  value="Registruj se" >  </td>
+<tr><td colspan="3"><a ng-disabled="reg.$invalid" ng-click="registracija()" class="btn btn-small btn-success">Registracija </a>  </td>
 
 </tr>
  </table>

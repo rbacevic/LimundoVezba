@@ -11,12 +11,21 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.apache.tomcat.util.threads.ResizableExecutor;
-import org.codehaus.jettison.json.JSONArray;
 
+
+
+
+import org.json.JSONArray;
+import org.apache.tomcat.util.threads.ResizableExecutor;
+
+
+
+/*import org.codehaus.jettison.json.JSONArray;
+*/
 import rs.limundo.model.Aukcije;
 import rs.limundo.model.Clan;
 import rs.limundo.util.ToJSON;
+import rs.limundo.util.ToJSON1;
 
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 
@@ -25,7 +34,7 @@ public class DAO {
       private DataSource ds;
       private Connection con;
        private ToJSON converter = new ToJSON();
-     
+       private ToJSON1 converter1 = new ToJSON1();
 //Ranko - finalna
 	/*ZA PRIJAVU*/private static String SELECTPRIJAVACLANA = "SELECT * FROM clanovi WHERE username= ?";
 	private static String SELECTPRIJAVADMIN = "SELECT * FROM administrator WHERE username= ?";
@@ -69,6 +78,7 @@ public class DAO {
 	//ranko dodato
 	
 	private static String SELECTCLANABYID= "SELECT * FROM clanovi WHERE id_clana=?";
+	private static String SELECTCLANALOGIN= "SELECT * FROM clanovi WHERE username=? and password=?";
 	private static String SELECTMOJEAUKCIJE="SELECT id_aukcije,naziv_predmeta, slika,cena, kategorija, trajanje,slika FROM aukcije WHERE id_clana=?";
 	
 	//aco dodato
@@ -725,7 +735,36 @@ e.printStackTrace();
 		return null;
 	}
 
+	
+	
 
+	public JSONArray selectClanLogIn(String username, String password) throws Exception{
+		//Connection con=null;
+		PreparedStatement pstm=null;
+		ResultSet rs= null;
+		 JSONArray json = new  JSONArray();
+		try {
+			//con= ds.getConnection();
+			pstm=con.prepareStatement(SELECTCLANALOGIN);
+			pstm.setString(1, username);
+			pstm.setString(2,password);
+			
+			rs=pstm.executeQuery();
+			
+			if(rs!=null){
+				json= converter1.toJSONArray(rs);
+				System.out.println(json);
+				}
+				return json;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			terminate();
+		}
+		
+		return null;
+	}
 	
 	
 	//kraj
@@ -969,7 +1008,7 @@ e.printStackTrace();
 			pstm.setString(10, c.getDatum_rodjenja());
 			pstm.setString(11, c.getPol());
 			pstm.setString(12, c.getMobilni_telefon());
-			pstm.setString(13, c.getAdministrator());
+			pstm.setString(13, "NE");
 			
 			pstm.execute();
 		

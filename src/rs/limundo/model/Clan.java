@@ -1,12 +1,30 @@
 package rs.limundo.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Clan {
-private  int id_clana;
-private String ime,prezime,username,password,email,adresa,broj,drzava,opstina,mobilni_telefon,datum_rodjenja,pol,administrator;
-private Timestamp vreme_upisa;
-private int ban;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.map.BeanDescription;
+import org.codehaus.jackson.map.BeanProperty;
+import org.codehaus.jackson.map.JsonSerializer;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.Serializers;
+import org.codehaus.jackson.map.TypeSerializer;
+import org.codehaus.jackson.map.type.ArrayType;
+import org.codehaus.jackson.map.type.CollectionLikeType;
+import org.codehaus.jackson.map.type.CollectionType;
+import org.codehaus.jackson.map.type.MapLikeType;
+import org.codehaus.jackson.map.type.MapType;
+import org.codehaus.jackson.type.JavaType;
+
+
+
+public class Clan implements Serializable {
+int id_clana;
+ String ime,prezime,username,password,email,adresa,broj,drzava,opstina,mobilni_telefon,datum_rodjenja,pol,administrator;
+Timestamp vreme_upisa;
+ int ban;
 
 public Clan() {
 	super();
@@ -127,6 +145,7 @@ public int getBan() {
 public void setBan(int ban) {
 	this.ban = ban;
 }
+
 
 
 }

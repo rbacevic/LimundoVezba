@@ -15,9 +15,18 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import org.codehaus.jettison.json.JSONArray;
 
+
+
+import org.json.JSONArray;
+
+
+
+/*import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
+*/
 import rs.limundo.dao.DAO;
 import rs.limundo.model.Aukcije;
 import rs.limundo.model.Clan;
@@ -512,8 +521,56 @@ public class LimundoServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response registracija( ){
-		return null;
+	public Response registracija(Clan clan){
+		int code =0;
+		try {
+			DAO dao = new DAO();
+			dao.dodajClana(clan);
+			
+			code = 201;
+	
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			code =500;
+		}
+		
+		
+		
+		
+		return Response.status(code).build();
+
+		
+		
+		
+		
+		
+		
+	}
+	@Path("/login")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(String username, String password) throws Exception{
+		JSONArray json = new JSONArray();
+		
+		try {
+			DAO dao = new DAO();
+			json=dao.selectClanLogIn(username,password);
+			System.out.println(json);
+
+			return Response.ok(json).build();
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return Response.ok("greska").build();
 
 		
 		

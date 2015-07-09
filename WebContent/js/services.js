@@ -1,5 +1,5 @@
 'use strict';
-var services = angular.module('limundo.services', [ 'ngResource' ]);
+var services = angular.module('limundo.services', [ 'ngResource', 'ngStorage']);
 var baseUrl = 'http://localhost:8080/Test/test/test';
 
 services.factory('SveAukcijeFactory', function($resource) {
@@ -70,16 +70,17 @@ services.factory('RegistracijaFactory', function($resource){
 			
 })});
 
-services.factory('AuthService', function ($http, Session) {
+services.factory('AuthService', function ($http, Session,$sessionStorage,$window) {
 	  var authService = {};
 	  
 	  authService.login = function (credentials) {
 	    return $http
 	      .post(baseUrl+'/login', credentials)
 	      .then(function (res) {
-	        Session.create(res.data.id, res.data.user.id,
-	                       res.data.user.role);
-	        return res.data.user;
+	       Session.create(res.data.id_clana, res.data.id_clana,
+	                       res.data.administrator);
+	   //   $window.sessionStorage.setItem('sessi', JSON.stringify(session));
+	        return res.data;
 	      });
 	  };
 	 
@@ -103,6 +104,8 @@ services.service('Session', function () {
 		    this.id = sessionId;
 		    this.userId = userId;
 		    this.userRole = userRole;
+		    
+		  
 		  };
 		  this.destroy = function () {
 		    this.id = null;

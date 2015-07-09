@@ -20,9 +20,9 @@ angular.module('limundo', ['limundo.controllers','limundo.services'])
   notAuthorized: 'auth-not-authorized'
 })
 .constant('USER_ROLES', {
-  all: '*',
-  admin: 'admin',
-  editor: 'editor',
-  guest: 'guest'
+ // all: '*',
+  admin: 'DA',
+ // editor: 'editor',
+  clan: 'NE'
 });
 

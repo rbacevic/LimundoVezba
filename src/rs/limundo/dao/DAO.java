@@ -738,7 +738,7 @@ e.printStackTrace();
 	
 	
 
-	public JSONArray selectClanLogIn(String username, String password) throws Exception{
+	public JSONArray selectClanLogIn(Clan c) throws Exception{
 		//Connection con=null;
 		PreparedStatement pstm=null;
 		ResultSet rs= null;
@@ -746,8 +746,8 @@ e.printStackTrace();
 		try {
 			//con= ds.getConnection();
 			pstm=con.prepareStatement(SELECTCLANALOGIN);
-			pstm.setString(1, username);
-			pstm.setString(2,password);
+			pstm.setString(1, c.getUsername());
+			pstm.setString(2,c.getPassword());
 			
 			rs=pstm.executeQuery();
 			

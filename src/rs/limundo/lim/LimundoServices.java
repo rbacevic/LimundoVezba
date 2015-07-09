@@ -553,15 +553,15 @@ public class LimundoServices {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(String username, String password) throws Exception{
+	public String login(Clan c) throws Exception{
 		JSONArray json = new JSONArray();
 		
 		try {
 			DAO dao = new DAO();
-			json=dao.selectClanLogIn(username,password);
+			json=dao.selectClanLogIn(c);
 			System.out.println(json);
 
-			return Response.ok(json).build();
+			return json.toString();
 
 			
 		} catch (SQLException e) {
@@ -570,7 +570,7 @@ public class LimundoServices {
 			
 		}
 		
-		return Response.ok("greska").build();
+		return null;
 
 		
 		

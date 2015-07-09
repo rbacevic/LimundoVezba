@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('limundo.controllers', [ 'ngRoute' ]);
+var app = angular.module('limundo.controllers', [ 'ngRoute', ]);
 
 app.run(function($rootScope, $templateCache) {
 	$rootScope.$on('$viewContentLoaded', function() {
@@ -115,5 +115,6 @@ $scope.isAuthorized = AuthService.isAuthorized;
 
 $scope.setCurrentUser = function (user) {
 $scope.currentUser = user;
+
 };
 });

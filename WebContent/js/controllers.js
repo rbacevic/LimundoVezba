@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('limundo.controllers', [ 'ngRoute', ]);
+var app = angular.module('limundo.controllers', [ 'ngRoute', 'ngStorage']);
 
 app.run(function($rootScope, $templateCache) {
 	$rootScope.$on('$viewContentLoaded', function() {
@@ -97,24 +97,35 @@ app.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, Aut
 			    username: '',
 			    password: ''
 			  };
-			  $scope.login = function (credentials) {
+	  
+		  $scope.login = function (credentials) {
 			    AuthService.login(credentials).then(function (user) {
+			    	 
+			    	
 			      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			      $scope.setCurrentUser(user);
+			      
+			      
 			    }, function () {
 			      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 			    });
 			  };
 			});
+
+
 app.controller('ApplicationController', function ($scope,
         USER_ROLES,
-        AuthService) {
-$scope.currentUser = null;
+        AuthService,
+        $sessionStorage) {
+//$scope.session = JSON.parse((sessionStorage.getItem('sess')));
+
 $scope.userRoles = USER_ROLES;
 $scope.isAuthorized = AuthService.isAuthorized;
 
 $scope.setCurrentUser = function (user) {
+	
 $scope.currentUser = user;
+//$scope.userRoles = user[0].administrator;
 
 };
 });

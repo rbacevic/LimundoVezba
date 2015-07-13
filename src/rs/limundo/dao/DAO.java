@@ -753,7 +753,7 @@ e.printStackTrace();
 			
 			if(rs!=null){
 				json= converter1.toJSONArray(rs);
-				System.out.println(json);
+				
 				}
 				return json;
 

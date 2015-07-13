@@ -70,18 +70,20 @@ services.factory('RegistracijaFactory', function($resource){
 			
 })});
 
-services.factory('AuthService', function ($http, Session,$sessionStorage,$window) {
+services.factory('AuthService', function ($http, Session) {
 	  var authService = {};
 	  
 	  authService.login = function (credentials) {
 	    return $http
 	      .post(baseUrl+'/login', credentials)
 	      .then(function (res) {
-	       Session.create(res.data.id_clana, res.data.id_clana,
+	       
+	    	var sesija=Session.create(res.data.id_clana, res.data.id_clana,
 	                       res.data.administrator);
-	   //   $window.sessionStorage.setItem('sessi', JSON.stringify(session));
-	        return res.data;
-	      });
+	    	sessionStorage.setItem("sess", JSON.stringify(sesija));
+	      return res.data;
+	    
+	      }); 
 	  };
 	 
 	  authService.isAuthenticated = function () {
@@ -100,18 +102,29 @@ services.factory('AuthService', function ($http, Session,$sessionStorage,$window
 	});
 
 services.service('Session', function () {
-	  this.create = function (sessionId, userId, userRole) {
-		    this.id = sessionId;
-		    this.userId = userId;
-		    this.userRole = userRole;
-		    
-		  
+	
+	
+	
+	this.create = function (sessionId, userId, userRole) {
+		
+	 this.id = sessionId;
+	    this.userID = userId;
+	    this.userROLE = userRole;
+	    
+	   
+	   
 		  };
 		  this.destroy = function () {
-		    this.id = null;
-		    this.userId = null;
-		    this.userRole = null;
+			    var sesija= {
+						 id: null,
+						 userID: null,
+						 userRole: null
+				   }
+			   
+			  
 		  };
+		 
+		  
 		})
 	
 

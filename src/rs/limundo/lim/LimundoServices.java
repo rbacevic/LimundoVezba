@@ -30,6 +30,7 @@ import javax.ws.rs.core.Response.Status;
 
 
 
+
 import org.apache.catalina.Session;
 import org.json.JSONArray;
 
@@ -40,6 +41,9 @@ import org.json.JSONArray;
 
 
 
+
+import com.sun.jersey.core.header.Token;
+
 /*import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 */
@@ -49,6 +53,12 @@ import rs.limundo.model.Clan;
 
 @Path("/test")
 public class LimundoServices {
+	
+	
+	
+		
+	
+	
 	@Path("/aukcije")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -575,7 +585,12 @@ public class LimundoServices {
 		try {
 			DAO dao = new DAO();
 			json=dao.selectClanLogIn(c);
-			System.out.println(json);
+			//System.out.println(json);
+			
+			
+			
+			
+			
 			
 			return json.toString();
 

@@ -1,5 +1,5 @@
 'use strict';
-var services = angular.module('limundo.services', [ 'ngResource', 'ngStorage']);
+var services = angular.module('limundo.services', [ 'ngResource', 'ngStorage','ngCookies']);
 var baseUrl = 'http://localhost:8080/Test/test/test';
 
 services.factory('SveAukcijeFactory', function($resource) {
@@ -70,7 +70,7 @@ services.factory('RegistracijaFactory', function($resource){
 			
 })});
 
-services.factory('AuthService', function ($http, Session) {
+services.factory('AuthService',['$http','$cookies',function ($http,$cookies /*, Session*/) {
 	  var authService = {};
 	  
 	  authService.login = function (credentials) {
@@ -78,15 +78,32 @@ services.factory('AuthService', function ($http, Session) {
 	      .post(baseUrl+'/login', credentials)
 	      .then(function (res) {
 	       
-	    	var sesija=Session.create(res.data.id_clana, res.data.id_clana,
+	     if(res.data!=null){
+	    	  var expDate = new Date();
+	    	  expDate.setMinutes(expDate.getMinutes()+1);
+	    	  $cookies.put('userObj', JSON.stringify(res.data), {'expires': expDate});
+	    	  return res.data;
+	     }else{
+	    	 return null;
+	     }
+	    	 
+	    	  
+	    	  
+	    	  
+	    	  /*var sesija=Session.create(res.data.id_clana, res.data.id_clana,
 	                       res.data.administrator);
-	    	sessionStorage.setItem("sess", JSON.stringify(sesija));
-	      return res.data;
+	    	sessionStorage.setItem("sess", JSON.stringify(sesija));*/
+	      
+	    	  
+	    	  
+	    	  
+	    	  
+	    	 
 	    
 	      }); 
 	  };
 	 
-	  authService.isAuthenticated = function () {
+	 /* authService.isAuthenticated = function () {
 	    return !!Session.userId;
 	  };
 	 
@@ -96,12 +113,31 @@ services.factory('AuthService', function ($http, Session) {
 	    }
 	    return (authService.isAuthenticated() &&
 	      authorizedRoles.indexOf(Session.userRole) !== -1);
-	  };
+	  };*/
 	 
 	  return authService;
-	});
+	}]);
 
-services.service('Session', function () {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*services.service('Session', function () {
 	
 	
 	
@@ -125,6 +161,6 @@ services.service('Session', function () {
 		  };
 		 
 		  
-		})
+		})*/
 	
 

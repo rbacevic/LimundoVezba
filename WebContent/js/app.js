@@ -10,8 +10,8 @@ angular.module('limundo', ['limundo.controllers','limundo.services'])
 	when('/:kategorija', {templateUrl: 'sveaukcije.html', controller:  'KatCtrl'}).
 	otherwise({redirectTo: '/'});
 	
-}])
-.constant('AUTH_EVENTS', {
+}]);
+/*.constant('AUTH_EVENTS', {
   loginSuccess: 'auth-login-success',
   loginFailed: 'auth-login-failed',
   logoutSuccess: 'auth-logout-success',
@@ -24,5 +24,5 @@ angular.module('limundo', ['limundo.controllers','limundo.services'])
   admin: 'DA',
  // editor: 'editor',
   clan: 'NE'
-});
+});*/
 

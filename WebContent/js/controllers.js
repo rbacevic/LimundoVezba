@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('limundo.controllers', [ 'ngRoute', 'ngStorage']);
+var app = angular.module('limundo.controllers', [ 'ngRoute', 'ngStorage','ngCookies']);
 
 app.run(function($rootScope, $templateCache) {
 	$rootScope.$on('$viewContentLoaded', function() {
@@ -92,7 +92,7 @@ function($scope,RegistracijaFactory,$location) {
 } ]);
 
 
-app.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+app.controller('LoginController', function ($scope, $rootScope, /*AUTH_EVENTS,*/$cookies, AuthService) {
 	  $scope.credentials = {
 			    username: '',
 			    password: ''
@@ -100,24 +100,68 @@ app.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, Aut
 	  
 		  $scope.login = function (credentials) {
 			    AuthService.login(credentials).then(function (user) {
-			    	 
+			    	if($cookies.get('userObj')!=null){
+			    		$scope.currentUser=JSON.parse($cookies.get('userObj'));
+			    	}else{
+			    		$scope.currentUser=null ;
+			    	}
+			    		
+			    		
 			    	
-			      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			    	
+			 /*     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 			      $scope.setCurrentUser(user);
+			      
+			      
+			      if(user!=null){
+			    		
+			    	}else{
+			    		window.alert("Greska");
+			    	}
+			    	
 			      
 			      
 			    }, function () {
 			      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-			    });
-			  };
-			});
+			    });*/
+			  });
+			}});
 
 
-app.controller('ApplicationController', function ($scope,
+app.controller('ApplicationController', function ($scope,$cookies
+		
+		/*,
         USER_ROLES,
         AuthService,
-        $sessionStorage) {
-//$scope.session = JSON.parse((sessionStorage.getItem('sess')));
+        $sessionStorage*/) {
+	if($cookies.get('userObj')!=null){
+	$scope.currentUser=JSON.parse($cookies.get('userObj'));
+}else{
+	$scope.currentUser=null ;
+}
+	
+	
+
+		
+	
+	 
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*$scope.session = JSON.parse((sessionStorage.getItem('sess')));
 
 $scope.userRoles = USER_ROLES;
 $scope.isAuthorized = AuthService.isAuthorized;
@@ -125,7 +169,7 @@ $scope.isAuthorized = AuthService.isAuthorized;
 $scope.setCurrentUser = function (user) {
 	
 $scope.currentUser = user;
-//$scope.userRoles = user[0].administrator;
+$scope.userRoles = user[0].administrator;
 
-};
+};*/
 });
